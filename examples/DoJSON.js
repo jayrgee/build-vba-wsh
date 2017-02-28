@@ -37,7 +37,15 @@ function includeJS(filename) {
 
   function getConfig() {
     var filename = ".\\config.json";
-    var fileStream = fso.openTextFile(filename);
+    var fileStream;
+    try
+    {
+      fileStream = fso.openTextFile(filename);
+    }
+    catch(e)
+    {
+      return {};
+    }
     var fileData = fileStream.readAll();
     fileStream.Close();
     return JSON.parse(fileData);
