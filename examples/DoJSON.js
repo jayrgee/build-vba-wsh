@@ -1,19 +1,28 @@
+// JScript with JSON!
+
+// define global fso
 var fso = new ActiveXObject("Scripting.FileSystemObject");
+// and JSON
 includeJS("..\\lib\\json2.js");
 
 
 (function (JSON, fso) {
-  var pathFile = "config.json";
 
-  WScript.Echo(pathFile);
-  var fileStream = fso.openTextFile(pathFile);
-  var fileData = fileStream.readAll();
-  fileStream.Close();
+  var config = getConfig();
 
-  var config = JSON.parse(fileData);
   WScript.Echo(JSON.stringify(config));
 
-}(this.JSON, fso));
+
+  function getConfig() {
+    var filename = ".\\config.json";
+    var fileStream = fso.openTextFile(filename);
+    var fileData = fileStream.readAll();
+    fileStream.Close();
+
+    return JSON.parse(fileData);
+  }
+
+}(this.JSON, this.fso));
 
 
 function includeJS(filename) {
