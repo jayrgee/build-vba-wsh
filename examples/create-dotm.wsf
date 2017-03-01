@@ -1,0 +1,58 @@
+<job id="bvba-create-dotm">
+  <script language="JScript" src="..\lib\json2.js" />
+  <script language="JScript" src="..\lib\bvba-util.js" />
+  <script language="JScript">
+    //<![CDATA[
+
+    var config = BVBA.getConfig() || {};
+    WScript.Echo(JSON.stringify(config));
+
+    // spin up app
+    var appWd = new ActiveXObject("Word.Application");
+
+    // create a new doc
+    var doc = appWd.Documents.Add();
+
+
+    // add VBProject references
+    var refs = [];
+    if (config.VBProject.References) {
+      refs = config.VBProject.References;
+    }
+    BVBA.addReferences(doc, refs);
+
+
+    // get paths of VBA components to be imported
+    var vbaPaths = [];
+    var vbaRootPath;
+
+    if (config.VBProject.VBSource) {
+      vbaRootPath = BVBA.getParentFolderName() + "\\" + config.VBProject.VBSource;
+      WScript.Echo(vbaRootPath);
+      vbaPaths = BVBA.getFilePaths(vbaRootPath);
+    }
+
+    // import VBA components to VBProject
+    BVBA.importVBAComponents(doc, vbaPaths);
+
+    // Save and close doc
+    var wdFormatXMLTemplateMacroEnabled = 15;
+    var docName;
+    var docExtension;
+    if (config.Document) {
+      docName = config.Document.Name || "New Document";
+      docExtension = config.Document.Extension || "docm";
+    }
+    var docPath = BVBA.getParentFolderName() + "\\" + docName + "." + docExtension;
+    WScript.Echo(docPath);
+    doc.SaveAs(docPath, wdFormatXMLTemplateMacroEnabled);
+    doc.Close();
+
+    // Quit app
+    appWd.Quit();
+
+    WScript.Echo("Done!")
+
+    //]]>
+  </script>
+</job>
