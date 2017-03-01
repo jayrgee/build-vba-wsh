@@ -42,22 +42,13 @@
     BVBA.importVBAComponents(doc, vbaPaths);
 
     // Save and close doc
-    var wdFormatXMLDocumentMacroEnabled = 13;
-    var wdFormatXMLTemplateMacroEnabled = 15;
     var docName;
     var docExtension;
     if (config.Document) {
       docName = config.Document.Name || "New Document";
       docExtension = config.Document.Extension || "docm";
     }
-    var saveFormat = wdFormatXMLDocumentMacroEnabled;
-    if (docExtension.toLowerCase === "dotm") {
-      saveFormat = wdFormatXMLTemplateMacroEnabled;
-    }
-
-    var docPath = BVBA.getParentFolderName() + "\\" + docName + "." + docExtension;
-    WScript.Echo(docPath);
-    doc.SaveAs(docPath, saveFormat);
+    BVBA.saveWordDocument(doc, BVBA.getParentFolderName(), docName, docExtension);
     doc.Close();
 
     // Quit app
@@ -65,6 +56,5 @@
 
     WScript.Echo("Done!")
 
-    //]]>
   </script>
 </job>
