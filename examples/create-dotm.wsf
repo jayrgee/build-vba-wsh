@@ -1,3 +1,8 @@
+<!-- 
+  create-dotm.wsf
+
+  Windows Script File (WSF) 
+ -->
 <job id="bvba-create-dotm">
   <script language="JScript" src="..\lib\json2.js" />
   <script language="JScript" src="..\lib\bvba-util.js" />
@@ -5,6 +10,7 @@
     //<![CDATA[
 
     var config = BVBA.getConfig() || {};
+
     WScript.Echo(JSON.stringify(config));
 
     // spin up app
@@ -36,6 +42,7 @@
     BVBA.importVBAComponents(doc, vbaPaths);
 
     // Save and close doc
+    var wdFormatXMLDocumentMacroEnabled = 13;
     var wdFormatXMLTemplateMacroEnabled = 15;
     var docName;
     var docExtension;
@@ -43,9 +50,14 @@
       docName = config.Document.Name || "New Document";
       docExtension = config.Document.Extension || "docm";
     }
+    var saveFormat = wdFormatXMLDocumentMacroEnabled;
+    if (docExtension.toLowerCase === "dotm") {
+      saveFormat = wdFormatXMLTemplateMacroEnabled;
+    }
+
     var docPath = BVBA.getParentFolderName() + "\\" + docName + "." + docExtension;
     WScript.Echo(docPath);
-    doc.SaveAs(docPath, wdFormatXMLTemplateMacroEnabled);
+    doc.SaveAs(docPath, saveFormat);
     doc.Close();
 
     // Quit app
