@@ -11,7 +11,7 @@
 
     var config = BVBA.getConfig() || {};
 
-    WScript.Echo(JSON.stringify(config));
+    //WScript.Echo(JSON.stringify(config));
 
     // spin up app
     var appWd = new ActiveXObject("Word.Application");
@@ -19,6 +19,10 @@
     // create a new doc
     var doc = appWd.Documents.Add();
 
+    // Set VBProject Name
+    if (config.VBProject.Name) {
+      doc.VBProject.Name = config.VBProject.Name;
+    }
 
     // add VBProject references
     var refs = [];
