@@ -22,12 +22,10 @@ function includeJS(filename) {
 // iife
 
 (function (config) {
-  var fso = new ActiveXObject("Scripting.FileSystemObject");
+  //var fso = new ActiveXObject("Scripting.FileSystemObject");
 
   config = config || {};
   //WScript.Echo(JSON.stringify(config));
-
-  var wdFormatXMLTemplateMacroEnabled = 15;
 
   // spin up app
   var appWd = new ActiveXObject("Word.Application");
@@ -35,50 +33,30 @@ function includeJS(filename) {
   // create a new doc
   var doc = appWd.Documents.Add();
 
-  var i = 0;
 
   // add VBProject references
   var refs = [];
   if (config.VBProject.References) {
     refs = config.VBProject.References;
   }
+  BVBA.addReferences(doc, refs);
 
-  for (i = 0; i < refs.length; i++) {
-    WScript.Echo(refs[i]);
-    doc.VBProject.References.AddFromFile(refs[i]);
-  }
 
   // get paths of VBA components to be imported
   var vbaPaths = [];
   var vbaRootPath;
-  var oVBAFolder;
 
   if (config.VBProject.VBSource) {
     vbaRootPath = BVBA.getParentFolderName() + "\\" + config.VBProject.VBSource;
     WScript.Echo(vbaRootPath);
-    if (fso.FolderExists(vbaRootPath)) {
-      oVBAFolder = fso.GetFolder(vbaRootPath);
-
-      forEach(oVBAFolder.Files, function (f) {
-        WScript.Echo(f.Path);
-        vbaPaths.push(f.Path);
-      });
-    }
+    vbaPaths = BVBA.getFilePaths(vbaRootPath);
   }
   
   // import VBA components to VBProject
-  var vbaPath;
-  var xName;
-  for (i = 0; i < vbaPaths.length; i++) {
-    vbaPath = vbaPaths[i];
-    xName = fso.GetExtensionName(vbaPath).toLowerCase();
-    if (xName === "bas" || xName === "cls" || xName === "frm" ) {
-      WScript.Echo(vbaPath);
-      doc.VBProject.VBComponents.Import(vbaPath)
-    }
-  }
+  BVBA.importVBAComponents(doc, vbaPaths);
 
   // Save and close doc
+  var wdFormatXMLTemplateMacroEnabled = 15;
   var docName;
   var docExtension;
   if (config.Document) {
@@ -94,12 +72,5 @@ function includeJS(filename) {
   appWd.Quit();
 
   WScript.Echo("Done!")
-
-  // Enumerate items in collection
-  function forEach(collection, func) {
-    for (var e = new Enumerator(collection) ; !e.atEnd() ; e.moveNext()) {
-      func(e.item());
-    }
-  }
 
 } (BVBA.getConfig()));
