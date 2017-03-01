@@ -3,19 +3,14 @@
 
   "Document" : {
     "Name" : "MyMacros",
-    "Format" : "dotm"
+    "Extension" : "dotm"
     },
 
-  "VBProject" : {
+  "VBProject": {
     "Name": "MyMacros",
     "References": [
       "C:\\Program Files\\Common Files\\System\\ado\\msado28.tlb"
-      ],
-
-    "VBComponents" : [
-        "Macros.bas",
-        "RibbonControl.bas",
-        "Main.frm"
-      ]
-    }
+    ],
+    "VBSource": "VBAMacros-dotm\\VBComponents"
+  }
 }
