@@ -1,30 +1,6 @@
-// define global fso
-// include JS
-includeJS("..\\lib\\json2");
-includeJS("..\\lib\\bvba-util");
+(function () {
+  var config = BVBA.getConfig() || {};
 
-// read and evaluate JS file
-function includeJS(filename) {
-  var fso = new ActiveXObject("Scripting.FileSystemObject");
-  var pathScript = WScript.ScriptFullName;
-  var f = fso.GetFile(pathScript);
-
-  filename = fso.GetParentFolderName(f) + "\\" + filename + ".js";
-  //WScript.Echo(filename);
-
-  var fileStream = fso.openTextFile(filename);
-  var fileData = fileStream.readAll();
-  fileStream.Close();
-  eval(fileData);
-}
-
-
-// iife
-
-(function (config) {
-  //var fso = new ActiveXObject("Scripting.FileSystemObject");
-
-  config = config || {};
   //WScript.Echo(JSON.stringify(config));
 
   // spin up app
@@ -33,6 +9,10 @@ function includeJS(filename) {
   // create a new doc
   var doc = appWd.Documents.Add();
 
+  // Set VBProject Name
+  if (config.VBProject.Name) {
+    doc.VBProject.Name = config.VBProject.Name;
+  }
 
   // add VBProject references
   var refs = [];
@@ -51,21 +31,18 @@ function includeJS(filename) {
     WScript.Echo(vbaRootPath);
     vbaPaths = BVBA.getFilePaths(vbaRootPath);
   }
-  
+
   // import VBA components to VBProject
   BVBA.importVBAComponents(doc, vbaPaths);
 
   // Save and close doc
-  var wdFormatXMLTemplateMacroEnabled = 15;
   var docName;
   var docExtension;
   if (config.Document) {
     docName = config.Document.Name || "New Document";
     docExtension = config.Document.Extension || "docm";
   }
-  var docPath = BVBA.getParentFolderName() + "\\" + docName + "." + docExtension;
-  WScript.Echo(docPath);
-  doc.SaveAs(docPath, wdFormatXMLTemplateMacroEnabled);
+  BVBA.saveWordDocument(doc, BVBA.getParentFolderName(), docName, docExtension);
   doc.Close();
 
   // Quit app
@@ -73,4 +50,4 @@ function includeJS(filename) {
 
   WScript.Echo("Done!")
 
-} (BVBA.getConfig()));
+}());

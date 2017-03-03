@@ -1,11 +1,8 @@
-<!-- 
-  create-dotm.wsf
-
-  Windows Script File (WSF) 
- -->
-<job id="bvba-create-dotm">
+<job id="run-test-specs">
   <script language="JScript" src="..\lib\json2.js" />
   <script language="JScript" src="..\lib\console-log.js" />
   <script language="JScript" src="..\lib\bvba-util.js" />
-  <script language="JScript" src="create-dotm.js" />
+  <script language="JScript" src=".\lib\tiny-test.js" />
+  <script language="JScript" src="bvba-util-specs.js">
+</script>
 </job>
