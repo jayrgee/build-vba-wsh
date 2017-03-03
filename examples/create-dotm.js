@@ -1,7 +1,7 @@
 (function () {
   var config = BVBA.getConfig() || {};
 
-  //WScript.Echo(JSON.stringify(config));
+  //console.log(JSON.stringify(config));
 
   // spin up app
   var appWd = new ActiveXObject("Word.Application");
@@ -28,7 +28,7 @@
 
   if (config.VBProject.VBSource) {
     vbaRootPath = BVBA.getParentFolderName() + "\\" + config.VBProject.VBSource;
-    WScript.Echo(vbaRootPath);
+    console.log(vbaRootPath);
     vbaPaths = BVBA.getFilePaths(vbaRootPath);
   }
 
@@ -48,6 +48,6 @@
   // Quit app
   appWd.Quit();
 
-  WScript.Echo("Done!")
+  console.log("Done!")
 
 }());
