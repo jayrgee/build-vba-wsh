@@ -1,7 +1,7 @@
 // Tiny unit test framework for JScript
 var test = function (component, fn, count) {
   count = count || 1;
-  WScript.Echo('# ' + component);
+  WScript.Echo('\n# ' + component);
 
   fn({
     same: function (actual, expected, msg) {

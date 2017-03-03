@@ -34,6 +34,32 @@
 
         assert.same(actual, expected, msg);
       }
+    });
+
+    test('BVBA.getApp', function (assert) {
+      {
+        var msg = 'BVBA.getApp(\'Word\') returns a Microsoft Word application object';
+
+        var app = BVBA.getApp('Word');
+        var actual = app.Name;
+        app.Quit();
+
+        var expected = 'Microsoft Word';
+
+        assert.same(actual, expected, msg);
+      }
+
+      {
+        var msg = 'BVBA.getApp(\'Excel\') returns a Microsoft Excel application object';
+
+        var app = BVBA.getApp('Excel');
+        var actual = app.Name;
+        app.Quit();
+
+        var expected = 'Microsoft Excel';
+
+        assert.same(actual, expected, msg);
+      }
 
       {
         var pathScript = WScript.ScriptFullName;
