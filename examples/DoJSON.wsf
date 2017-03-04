@@ -1,26 +1,5 @@
 <job id="IncludeExample">
-<script language="JScript" src="..\lib\json2.js"/>
-<script language="JScript">
-    //<![CDATA[
-
-    if (!this.JSON) WScript.Echo("JSON DOESN'T EXIST");
-    //WScript.Echo(JSON.stringify(config));
-
-
-    var fso = new ActiveXObject("Scripting.FileSystemObject");
-    //var pathScript = WScript.ScriptFullName;
-    //var f = fso.GetFile(pathScript);
-    //var pathFolder = fso.GetParentFolderName(f);
-    //var pathFile = pathFolder + "\\config.json";
-    var pathFile = "config.json";
-
-    WScript.Echo(pathFile);
-    var fileStream = fso.openTextFile(pathFile);
-    var fileData = fileStream.readAll();
-    fileStream.Close();
-
-    var config = JSON.parse(fileData);
-    WScript.Echo(JSON.stringify(config));
-    //]]>
-</script>
+  <script language="JScript" src="..\lib\json2.js" />
+  <script language="JScript" src="..\lib\console-log.js" />
+  <script language="JScript" src=".\DoJSON.js" />
 </job>
