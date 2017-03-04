@@ -1,5 +1,5 @@
 <!-- 
-  create-dotm.wsf
+  build-dotm.wsf
 
   Windows Script File (WSF) 
  -->
@@ -7,5 +7,5 @@
   <script language="JScript" src="..\lib\json2.js" />
   <script language="JScript" src="..\lib\console-log.js" />
   <script language="JScript" src="..\lib\bvba-util.js" />
-  <script language="JScript" src="create-dotm.js" />
+  <script language="JScript" src="build-dotm.js" />
 </job>
