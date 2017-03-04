@@ -42,7 +42,11 @@
     docName = config.Document.Name || "New Document";
     docExtension = config.Document.Extension || "docm";
   }
-  BVBA.saveWordDocument(doc, BVBA.getParentFolderName(), docName, docExtension);
+
+  var buildFolder = BVBA.getParentFolderName() + "\\" + "build";
+
+  BVBA.saveWordDocument(doc, buildFolder, docName, docExtension);
+  BVBA.saveWordDocument(doc, buildFolder, docName, "dot");
   doc.Close();
 
   // Quit app
