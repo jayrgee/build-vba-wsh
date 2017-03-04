@@ -1,5 +1,5 @@
 <job id="JSON Example">
   <script language="JScript" src="..\lib\json2.js" />
   <script language="JScript" src="..\lib\console-log.js" />
-  <script language="JScript" src=".\DoJSON.js" />
+  <script language="JScript" src="DoJSON.js" />
 </job>
