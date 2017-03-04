@@ -30,9 +30,15 @@ for (i = 0; i < objArgs.length; i++) {
 
   console.log(JSON.stringify(config));
 
+  console.log(WScript.Name);
+  console.log(WScript.Path);
+  console.log(WScript.FullName);
+  console.log(fso.GetBaseName(WScript.FullName));
+
 
   function getConfig() {
-    var filespec = getParentFolderName() + "\\config.json";
+    var baseName = fso.GetBaseName(WScript.ScriptFullName);
+    var filespec = getParentFolderName() + "\\" + baseName + "-config.json";
     console.log(filespec);
     var fileStream;
     try
