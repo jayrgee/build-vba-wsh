@@ -9,4 +9,6 @@ Manage VBA code and other assets embedded in MS Office documents and templates:
 
 ## Links
 
+[Wiki](https://github.com/jayrgee/build-vba-wsh/wiki)
+
 [Glossary](https://github.com/jayrgee/build-vba-wsh/wiki/Glossary)
