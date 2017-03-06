@@ -1,0 +1,7 @@
+<job id="export">
+  <script language="JScript" src="lib\json2.js" />
+  <script language="JScript" src="lib\console-log.js" />
+  <script language="JScript" src="lib\bvba-util.js" />
+  <script language="JScript" src="lib\bvba-export.js">
+</script>
+</job>
